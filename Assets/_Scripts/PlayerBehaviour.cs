@@ -32,8 +32,9 @@ public class PlayerBehaviour : MonoBehaviour
     public BarController healthBar;
     public Animator livesHUD;
 
-    private ParticleSystem m_dustTrail; 
-
+    [Header("Dust Trail")]
+    public ParticleSystem dustTrail;
+    public Color dustTrailColour;
 
     private Rigidbody2D m_rigidBody2D;
     private SpriteRenderer m_spriteRenderer;
@@ -49,7 +50,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_rigidBody2D = GetComponent<Rigidbody2D>();
         m_spriteRenderer = GetComponent<SpriteRenderer>();
         m_animator = GetComponent<Animator>();
-        m_dustTrail = GetComponentInChildren<ParticleSystem>();
+        dustTrail = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -240,6 +241,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CreateDustTrail()
     {
-        m_dustTrail.Play();
+        dustTrail.GetComponent<Renderer>().material.SetColor("_Color", dustTrailColour);
+
+        dustTrail.Play();
     }
 }
